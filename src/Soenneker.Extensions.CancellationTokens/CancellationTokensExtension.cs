@@ -12,6 +12,7 @@ public static class CancellationTokensExtension
     /// Returns a linked token if both are cancelable; otherwise returns whichever is cancelable (or default if neither).
     /// Avoids allocating a CTS unless strictly necessary.
     /// </summary>
+    /// <returns>A linked token if both are cancelable; otherwise returns whichever is cancelable (or default if neither). Avoids allocating a CTS unless strictly necessary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static CancellationToken Link(this CancellationToken first, CancellationToken second, out CancellationTokenSource? cts)
     {
