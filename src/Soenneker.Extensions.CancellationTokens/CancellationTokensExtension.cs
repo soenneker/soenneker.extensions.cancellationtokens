@@ -4,7 +4,7 @@ using System.Threading;
 namespace Soenneker.Extensions.CancellationTokens;
 
 /// <summary>
-/// A collection of helpful CancellationToken extension methods
+/// Provides allocation-aware cancellation-token composition.
 /// </summary>
 public static class CancellationTokensExtension
 {
@@ -12,7 +12,10 @@ public static class CancellationTokensExtension
     /// Returns a linked token if both are cancelable; otherwise returns whichever is cancelable (or default if neither).
     /// Avoids allocating a CTS unless strictly necessary.
     /// </summary>
-    /// <returns>A linked token if both are cancelable; otherwise returns whichever is cancelable (or default if neither). Avoids allocating a CTS unless strictly necessary.</returns>
+    /// <param name="first">The first token to combine.</param>
+    /// <param name="second">The second token to combine.</param>
+    /// <param name="cts">Receives the linked source when one is allocated; otherwise <see langword="null"/>. The caller owns and must dispose it.</param>
+    /// <returns>A token canceled when either input cancels.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static CancellationToken Link(this CancellationToken first, CancellationToken second, out CancellationTokenSource? cts)
     {
